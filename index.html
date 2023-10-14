@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Income Category List</title>
+</head>
+<body>
+  <select id="incomeCategorySelect">
+    <option value="">Select an income category</option>
+  </select>
+
+  <h1>Income Category</h1>
+  <input type="text" id="txtCat" />
+  <input type="button" value="ADD" id="btnAdd" />
+  <hr>
+  <h1>Income Category List</h1>
+  <div id="divCatList">
+    <ul id="categoryList">
+      <!-- Existing categories will be displayed here -->
+    </ul>
+  </div>
+
+  <script>
+    // Function to populate the Income Category List
+    function populateIncomeCategoryList() {
+      const incomeCategories = ["Salary", "Freelance", "Investments", "Business"];
+    
+      const selectElement = document.getElementById("incomeCategorySelect");
+    
+      // Clear existing options
+      selectElement.innerHTML = '';
+    
+      // Populate options
+      for (const category of incomeCategories) {
+        const option = document.createElement("option");
+        option.value = category;
+        option.text = category;
+        selectElement.appendChild(option);
+      }
+    }
+  
+    // Call the function to populate the Income Category List
+    populateIncomeCategoryList();
+    
+    let txtCat = document.getElementById("txtCat");
+    let btnAdd = document.getElementById("btnAdd");
+    let divCatList = document.getElementById("divCatList");
+    let categoryList = document.getElementById("categoryList");
+  
+    btnAdd.addEventListener("click", updateCatList);
+  
+    function updateCatList(){
+      let newCategory = txtCat.value;
+  
+      // Append the new category to the Income Category List
+      const selectElement = document.getElementById("incomeCategorySelect");
+      const option = document.createElement("option");
+      option.value = newCategory;
+      option.text = newCategory;
+      selectElement.appendChild(option);
+  
+      // Update the displayed list
+      const newCategoryItem = document.createElement("li");
+      newCategoryItem.textContent = newCategory;
+  
+      // Add a delete button for each category
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", function() {
+        categoryList.removeChild(newCategoryItem);
+        selectElement.removeChild(option);
+      });
+  
+      newCategoryItem.appendChild(deleteButton);
+      categoryList.appendChild(newCategoryItem);
+  
+      txtCat.value = ''; // Clear the input after adding
+    }
+  </script>
+</body>
+</html>
